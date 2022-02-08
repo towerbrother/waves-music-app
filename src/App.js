@@ -9,9 +9,7 @@ import "./styles/app.scss";
 const App = () => {
   const audioRef = useRef(null);
   const [songs, setSongs] = useState(data());
-  const [currentSong, setCurrentSong] = useState(
-    songs.filter((song) => song.active)
-  );
+  const [currentSong, setCurrentSong] = useState(songs[0]);
   const [isPlaying, setIsPlaying] = useState(false);
   const [songInfo, setSongInfo] = useState({ currentTime: 0, duration: 0 });
   const [libraryStatus, setLibraryStatus] = useState(false);
