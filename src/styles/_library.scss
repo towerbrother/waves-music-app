@@ -6,6 +6,9 @@
   height: 100%;
   box-shadow: 2px 2px 50px rgb(204, 204, 204);
   overflow: scroll;
+  transform: translate(-100%);
+  transition: all 0.5s ease;
+  opacity: 0;
 
   h2 {
     padding: 2rem;
@@ -38,10 +41,15 @@
       }
     }
   }
+}
 
-  .selected {
-    background: rgb(222, 222, 222);
-  }
+.selected {
+  background: rgb(222, 222, 222);
+}
+
+.active-library {
+  transform: translate(0%);
+  opacity: 1;
 }
 
 // scrollbar styling
