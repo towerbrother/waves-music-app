@@ -6,7 +6,6 @@ import {
   faAngleLeft,
   faAngleRight,
 } from "@fortawesome/free-solid-svg-icons";
-import { playAudio } from "../util";
 
 const Player = ({
   audioRef,
@@ -44,10 +43,10 @@ const Player = ({
     setSongInfo({ ...songInfo, currentTime: e.target.value });
   };
 
-  const handleSkipTrack = (direction) => {
+  const handleSkipTrack = async (direction) => {
     let currentIndex = songs.findIndex((song) => song.id === currentSong.id);
     if (direction === "skip-back") {
-      setCurrentSong(
+      await setCurrentSong(
         (currentIndex - 1) % songs.length === -1
           ? songs[songs.length - 1]
           : songs[(currentIndex - 1) % songs.length]
@@ -55,10 +54,10 @@ const Player = ({
     }
 
     if (direction === "skip-forward") {
-      setCurrentSong(songs[(currentIndex + 1) % songs.length]);
+      await setCurrentSong(songs[(currentIndex + 1) % songs.length]);
     }
 
-    playAudio(isPlaying, audioRef);
+    if (isPlaying) audioRef.current.play();
   };
 
   const formatTime = (time) =>
