@@ -9,7 +9,7 @@ const LibrarySong = ({
   isPlaying,
 }) => {
   const handleSongSelect = async () => {
-    setCurrentSong(song);
+    await setCurrentSong(song);
     await setSongs(
       songs.map((s) =>
         s.id === song.id ? { ...s, active: true } : { ...s, active: false }
