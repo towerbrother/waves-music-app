@@ -4,7 +4,7 @@ import Player from "./components/Player";
 import Song from "./components/Song";
 import Nav from "./components/Nav";
 import data from "./data";
-import "./styles/app.scss";
+import "./styles/styles.scss";
 
 const App = () => {
   const audioRef = useRef(null);

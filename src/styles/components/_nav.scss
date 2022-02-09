@@ -9,19 +9,19 @@ nav {
     cursor: pointer;
     background: transparent;
     border: none;
-    border: 2px solid rgb(65, 65, 65);
+    border: 2px solid $off-black;
     border-radius: 5px;
     padding: 0.3rem;
     transition: all 0.3s ease;
 
     &:hover {
-      background: rgb(65, 65, 65);
-      color: white;
+      background: $off-black;
+      color: $off-white;
     }
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: $media-query-breakpoint) {
   nav {
     button {
       z-index: 10;
