@@ -7,13 +7,14 @@ import data from "./data";
 import "./styles/styles.scss";
 
 const App = () => {
-  const audioRef = useRef(null);
   const [songs, setSongs] = useState(data());
   const [currentSong, setCurrentSong] = useState(songs[0]);
   const [isPlaying, setIsPlaying] = useState(false);
   const [songInfo, setSongInfo] = useState({ currentTime: 0, duration: 0 });
   const [libraryStatus, setLibraryStatus] = useState(false);
-
+  
+  const audioRef = useRef(null);
+  
   const handleTimeUpdate = (e) => {
     const time = e.target.currentTime;
     const duration = e.target.duration;

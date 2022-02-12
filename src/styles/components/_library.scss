@@ -74,7 +74,7 @@
   border: transparent;
 }
 
-@media screen and (max-width: $media-query-breakpoint) {
+@media screen and (max-width: $breakpoint) {
   .library {
     width: 100%;
   }

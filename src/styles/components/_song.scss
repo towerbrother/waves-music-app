@@ -19,7 +19,7 @@
   }
 }
 
-@media screen and (max-width: $media-query-breakpoint) {
+@media screen and (max-width: $breakpoint) {
   .song-container {
     img {
       width: 60%;

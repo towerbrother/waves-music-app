@@ -32,7 +32,7 @@
   }
 }
 
-@media screen and (max-width: $media-query-breakpoint) {
+@media screen and (max-width: $breakpoint) {
   .time-control {
     width: 90%;
   }

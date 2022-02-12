@@ -21,7 +21,7 @@ nav {
   }
 }
 
-@media screen and (max-width: $media-query-breakpoint) {
+@media screen and (max-width: $breakpoint) {
   nav {
     button {
       z-index: 10;
