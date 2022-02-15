@@ -1,17 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
+import MusicContext from "../context/musicContext";
 
-const LibrarySong = ({
-  song,
-  songs,
-  setSongs,
-  setCurrentSong,
-  audioRef,
-  isPlaying,
-}) => {
+const LibrarySong: ({ song }: any) => JSX.Element = ({ song }: any) => {
+  const {
+    songs,
+    setSongs,
+    setCurrentSong,
+    audioRef,
+    isPlaying,
+  } = useContext(MusicContext);
+
   const handleSongSelect = async () => {
     await setCurrentSong(song);
     await setSongs(
-      songs.map((s) =>
+      songs.map((s: any) =>
         s.id === song.id ? { ...s, active: true } : { ...s, active: false }
       )
     );

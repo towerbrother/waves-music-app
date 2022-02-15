@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import MusicContext from "../context/musicContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlay,
@@ -7,20 +8,22 @@ import {
   faAngleRight,
 } from "@fortawesome/free-solid-svg-icons";
 
-const Player = ({
-  audioRef,
-  isPlaying,
-  setIsPlaying,
-  songInfo,
-  setSongInfo,
-  songs,
-  setSongs,
-  currentSong,
-  setCurrentSong,
-}) => {
-  const handleActiveLibrary = (song) => {
+const Player: () => JSX.Element = () => {
+  const {
+    audioRef,
+    isPlaying,
+    setIsPlaying,
+    songInfo,
+    setSongInfo,
+    songs,
+    setSongs,
+    currentSong,
+    setCurrentSong,
+  } = useContext(MusicContext);
+
+  const handleActiveLibrary = (song: any) => {
     setSongs(
-      songs.map((s) =>
+      songs.map((s: any) =>
         s.id === song.id ? { ...s, active: true } : { ...s, active: false }
       )
     );
@@ -36,13 +39,13 @@ const Player = ({
     }
   };
 
-  const handleInputDrag = (e) => {
+  const handleInputDrag = (e: any) => {
     audioRef.current.currentTime = e.target.value;
     setSongInfo({ ...songInfo, currentTime: e.target.value });
   };
 
-  const handleSkipTrack = async (direction) => {
-    let currentIndex = songs.findIndex((song) => song.id === currentSong.id);
+  const handleSkipTrack = async (direction: string) => {
+    let currentIndex = songs.findIndex((song: any) => song.id === currentSong.id);
     if (direction === "skip-back") {
       const prevSong =
         (currentIndex - 1) % songs.length === -1
@@ -60,13 +63,13 @@ const Player = ({
     if (isPlaying) audioRef.current.play();
   };
 
-  const formatTime = (time) =>
+  const formatTime = (time: number) =>
     Math.floor(time / 60) + ":" + ("0" + Math.floor(time % 60)).slice(-2);
 
   return (
     <div className="player">
       <div className="time-control">
-        <p>{formatTime(songInfo.currentTime)}</p>
+        <p>{songInfo.currentTime ? formatTime(songInfo.currentTime) : "0:00"}</p>
         <input
           type="range"
           min={0}
