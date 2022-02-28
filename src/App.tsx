@@ -13,37 +13,43 @@ const App = () => {
   const [songs, setSongs] = useState<IData[]>(data());
   const [currentSong, setCurrentSong] = useState<IData>(songs[0]);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
-  const [songInfo, setSongInfo] = useState<ISongInfo>({ currentTime: 0, duration: 0 });
+  const [songInfo, setSongInfo] = useState<ISongInfo>({
+    currentTime: 0,
+    duration: 0,
+  });
   const [libraryStatus, setLibraryStatus] = useState<boolean>(false);
-  
-  const audioRef: React.MutableRefObject<null | HTMLAudioElement> = useRef(null);
-  
-  const handleTimeUpdate = (e: any) => {
+
+  const audioRef: React.MutableRefObject<null | HTMLAudioElement> =
+    useRef(null);
+
+  const handleTimeUpdate = (e: any): void => {
     const time = e.target.currentTime;
     const duration = e.target.duration;
     setSongInfo({ ...songInfo, currentTime: time, duration: duration });
   };
 
-  const handleSongEnd = async () => {
-    let currentIndex = songs.findIndex((song) => song.id === currentSong.id);  
+  const handleSongEnd = async (): Promise<void> => {
+    let currentIndex = songs.findIndex((song) => song.id === currentSong.id);
     await setCurrentSong(songs[(currentIndex + 1) % songs.length]);
     if (isPlaying) audioRef.current?.play();
   };
 
   return (
-    <MusicContext.Provider value={{
-      songs,
-      setSongs,
-      currentSong,
-      setCurrentSong,
-      isPlaying,
-      setIsPlaying,
-      libraryStatus, 
-      setLibraryStatus,
-      songInfo,
-      setSongInfo,
-      audioRef
-    }}>
+    <MusicContext.Provider
+      value={{
+        songs,
+        setSongs,
+        currentSong,
+        setCurrentSong,
+        isPlaying,
+        setIsPlaying,
+        libraryStatus,
+        setLibraryStatus,
+        songInfo,
+        setSongInfo,
+        audioRef,
+      }}
+    >
       <div className={`App ${libraryStatus ? "library-active" : ""}`}>
         <Nav />
         <Library />
