@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
+import MusicContext from "../context/musicContext";
 
-const Song = ({ currentSong }) => {
+const Song: () => JSX.Element = () => {
+  const { currentSong } = useContext(MusicContext);
+
   return (
     <div className="song-container">
       <img alt={currentSong.name} src={currentSong.cover}></img>

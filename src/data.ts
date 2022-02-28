@@ -61,8 +61,7 @@ function chillHop() {
       color: ["#205950", "#2ab3bf"],
       id: uuidv4(),
       active: false,
-    },
-    //ADD MORE HERE
+    }
   ];
 }
 

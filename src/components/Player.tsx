@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import MusicContext from "../context/musicContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlay,
@@ -6,27 +7,30 @@ import {
   faAngleLeft,
   faAngleRight,
 } from "@fortawesome/free-solid-svg-icons";
+import IData from "../interfaces/IData";
 
-const Player = ({
-  audioRef,
-  isPlaying,
-  setIsPlaying,
-  songInfo,
-  setSongInfo,
-  songs,
-  setSongs,
-  currentSong,
-  setCurrentSong,
-}) => {
-  const handleActiveLibrary = (song) => {
+const Player: () => JSX.Element = () => {
+  const {
+    audioRef,
+    isPlaying,
+    setIsPlaying,
+    songInfo,
+    setSongInfo,
+    songs,
+    setSongs,
+    currentSong,
+    setCurrentSong,
+  } = useContext(MusicContext);
+
+  const handleActiveLibrary = (id: string) => {
     setSongs(
-      songs.map((s) =>
-        s.id === song.id ? { ...s, active: true } : { ...s, active: false }
+      songs.map((s: IData) =>
+        s.id === id ? { ...s, active: true } : { ...s, active: false }
       )
     );
   };
 
-  const handlePlaySong = () => {
+  const handlePlaySong = (): void => {
     if (isPlaying) {
       audioRef.current.pause();
       setIsPlaying(!isPlaying);
@@ -36,20 +40,22 @@ const Player = ({
     }
   };
 
-  const handleInputDrag = (e) => {
+  const handleInputDrag = (e: any): void => {
     audioRef.current.currentTime = e.target.value;
     setSongInfo({ ...songInfo, currentTime: e.target.value });
   };
 
-  const handleSkipTrack = async (direction) => {
-    let currentIndex = songs.findIndex((song) => song.id === currentSong.id);
+  const handleSkipTrack = async (direction: string): Promise<void> => {
+    let currentIndex = songs.findIndex(
+      (song: IData) => song.id === currentSong.id
+    );
     if (direction === "skip-back") {
       const prevSong =
         (currentIndex - 1) % songs.length === -1
           ? songs[songs.length - 1]
           : songs[(currentIndex - 1) % songs.length];
       await setCurrentSong(prevSong);
-      handleActiveLibrary(prevSong);
+      handleActiveLibrary(prevSong.id);
     }
 
     if (direction === "skip-forward") {
@@ -60,13 +66,15 @@ const Player = ({
     if (isPlaying) audioRef.current.play();
   };
 
-  const formatTime = (time) =>
+  const formatTime = (time: number): string =>
     Math.floor(time / 60) + ":" + ("0" + Math.floor(time % 60)).slice(-2);
 
   return (
     <div className="player">
       <div className="time-control">
-        <p>{formatTime(songInfo.currentTime)}</p>
+        <p>
+          {songInfo.currentTime ? formatTime(songInfo.currentTime) : "0:00"}
+        </p>
         <input
           type="range"
           min={0}
