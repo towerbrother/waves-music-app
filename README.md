@@ -13,7 +13,7 @@ The app has been build as learning opportunity during my path to become a Softwa
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and built using the following technologies:
 
 - React (incl. Hooks)
-- Javascript
+- Typescript
 - SASS
 
 ## Features
